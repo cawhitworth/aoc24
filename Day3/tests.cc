@@ -20,7 +20,7 @@ TEST_CASE( "Day 3", "[day3]")
 
 TEST_CASE( "Day 3 with do/don't", "[day3]")
 {
-    bool b;
+    bool b = true;
     auto input = "xmul(2,4)&mul[3,7]!^don't()_mul(5,5)+mul(32,64](mul(11,8)undo()?mul(8,5))";
     auto expected = pairs { { 2, 4}, {8, 5}};
     auto result = parse_line(input, b, true);
