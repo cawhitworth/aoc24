@@ -25,20 +25,25 @@ int main(int argc, char* argv[])
         }
     }
 
-    int result  = 0;
+    int result  = 0, result2 = 0;
     for(auto p: pagesets)
     {
         if (p.size() % 2 != 1) { 
             std::cerr << "Even-sized pageset!" << std::endl;
         }
 
-        if (is_ordered(p, r)) {
-            int mid_val = p[p.size() / 2];
+        auto pages_sorted = p;
+        std::sort(pages_sorted.begin(), pages_sorted.end(), [&r](int lhs, int rhs) { return page_compare(lhs, rhs, r);});
+        int mid_val = pages_sorted[pages_sorted.size() / 2];
+        if(std::equal(p.begin(), p.end(), pages_sorted.begin())) {
             result += mid_val;
+        } else {
+            result2 += mid_val;
         }
     }
 
     std::cout << "Result: " << result << std::endl;
+    std::cout << "Result 2: " << result2 << std::endl;
     return 0;
 }
 
