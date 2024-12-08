@@ -16,7 +16,7 @@ TEST_CASE( "Day 5", "[day5]")
     REQUIRE( page_compare(75, 97, r) == true);
 }
 
-static const std::initializer_list rules_input = {
+static const std::initializer_list<std::string> rules_input = {
     "47|53",
     "97|13",
     "97|61",
@@ -40,7 +40,7 @@ static const std::initializer_list rules_input = {
     "53|13",
 };
 
-static const std::initializer_list pages_input = {
+static const std::initializer_list<std::string> pages_input = {
     "75,47,61,53,29",
     "97,61,53,29,13",
     "75,29,13",
