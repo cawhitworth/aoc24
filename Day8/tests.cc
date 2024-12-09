@@ -40,5 +40,23 @@ TEST_CASE( "Day 8 - deltas", "[day8]")
     vec2 dimensions { static_cast<int>(map[0].size()), static_cast<int>(map.size()) };
     final_set = bound_to(final_set, dimensions );
 
+//    display_map(map, final_set);
+
     REQUIRE(final_set.size() == 14);
+}
+
+TEST_CASE( "Day 8 - part 2 deltas", "[day8]")
+{
+    vec2 dimensions { static_cast<int>(map[0].size()), static_cast<int>(map.size()) };
+    nodes n = parse_map(map);
+    vec2_set final_set;
+    for(auto& [node, _] : n)
+    {
+        auto an = bounded_antinodes(n, dimensions, node);
+        final_set.merge(an);
+    }
+
+//    display_map(map, final_set);
+
+    REQUIRE(final_set.size() == 34);
 }
