@@ -4,25 +4,7 @@
 #include <vector>
 #include <utility>
 
-struct vec2 {
-    int x;
-    int y;
-
-    bool operator==(const vec2& other) const {
-        return x == other.x && y == other.y;
-    }
-};
-
-inline vec2 operator+(const vec2& lhs, const vec2& rhs)
-{
-    return vec2 { lhs.x + rhs.x, lhs.y + rhs.y };
-}
-
-struct vec2_hash {
-    auto operator()(const vec2 &v) const {
-        return v.x ^ (v.y << 1);
-    }
-};
+#include "utils.h"
 
 struct visit {
     vec2 location;
