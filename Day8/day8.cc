@@ -57,21 +57,21 @@ vec2_set antinodes(const nodes& n, char t)
     return antinodes;
 }
 
-vec2_set bound_to(const vec2_set& set, const vec2& dimensions)
-{
-    vec2_set output;
-    std::copy_if(set.begin(), set.end(), std::inserter(output, output.end()), [&dimensions](vec2 v) {
-        return v.x >= 0 && v.y >= 0 && v.x < dimensions.x && v.y < dimensions.y;
-    });
-    return output;
-}
-
 bool in_bounds(const vec2& v, const vec2& bounds)
 {
     return v.x >= 0 && v.y >= 0 && v.x < bounds.x && v.y < bounds.y;
 }
 
-vec2_set bounded_antinodes(const nodes& n, const vec2& dimension, char transmitter)
+vec2_set bound_to(const vec2_set& set, const vec2& dimensions)
+{
+    vec2_set output;
+    std::copy_if(set.begin(), set.end(), std::inserter(output, output.end()), [&dimensions](vec2 v) {
+        return in_bounds(v, dimensions);
+    });
+    return output;
+}
+
+vec2_set bounded_antinodes(const nodes& n, const vec2& dimensions, char transmitter)
 {
     auto it_transmitters = n.find(transmitter);
     if (it_transmitters == n.end()) {
@@ -87,13 +87,13 @@ vec2_set bounded_antinodes(const nodes& n, const vec2& dimension, char transmitt
         {
             auto delta = t-other;
             auto antinode = t;
-            while(in_bounds(antinode, dimension))
+            while(in_bounds(antinode, dimensions))
             {
                 antinodes.insert(antinode);
                 antinode = antinode + delta;
             } 
             antinode = other;
-            while(in_bounds(antinode, dimension))
+            while(in_bounds(antinode, dimensions))
             {
                 antinodes.insert(antinode);
                 antinode = antinode - delta;
