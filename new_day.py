@@ -31,3 +31,6 @@ for f in files:
                 new_line = subs.sub("\g<1>"+day, line)
                 dst.write(new_line)
 
+with open("CMakeLists.txt", "a") as f:
+    f.write(os.linesep)
+    f.write(f"add_subdirectory(Day{day})")

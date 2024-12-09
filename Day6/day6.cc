@@ -50,7 +50,6 @@ bool detect_loop(grid& g)
         auto v = g.take_step();
         // If we've visited this cell, facing in this direction before, we've got a loop
         if (visited.find(v) != visited.end()) {
-            std::cout << "Loop detected after " << visited.size() << " steps" << std::endl;
             return true;
         }
         visited.insert(v);
