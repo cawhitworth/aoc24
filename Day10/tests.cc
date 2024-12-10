@@ -23,3 +23,10 @@ TEST_CASE( "Day 10", "[day10]")
 
     REQUIRE( reachable_peaks(input, t[0]).size() == 5);
 }
+
+TEST_CASE( "Day 10 part 2", "[day10]")
+{
+    auto t = find_trailheads(input);
+
+    REQUIRE( paths_to_peaks(input, t[0]) == 20);
+}

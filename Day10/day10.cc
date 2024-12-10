@@ -53,3 +53,30 @@ vec2_set reachable_peaks(const map& m, const vec2& starting_point)
 
     return peaks;
 }
+
+int paths_to_peaks(const map& m, const vec2& starting_point)
+{
+    int width = static_cast<int>(m[0].size());
+    int height = static_cast<int>(m.size());
+    char starting_height = m[starting_point.y][starting_point.x];
+
+    if (starting_height == '9') {
+        return 1;
+    }
+
+    int paths = 0;
+
+    for(auto d: directions) {
+        vec2 candidate_step = starting_point + d;
+        if (!candidate_step.in_bounds(vec2 { width, height })) {
+            continue;
+        }
+        char candidate_height = m[candidate_step.y][candidate_step.x];
+        if (candidate_height - starting_height != 1) {
+            continue;
+        }
+        paths += paths_to_peaks(m, candidate_step);
+    }
+
+    return paths;
+}
