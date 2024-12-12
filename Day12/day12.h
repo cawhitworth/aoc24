@@ -1,6 +1,7 @@
 #pragma once
 
 #include "utils.h"
+#include <list>
 
 typedef vec2_set region;
 
