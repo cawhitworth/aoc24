@@ -124,11 +124,12 @@ std::vector<region> find_all_regions(const std::vector<std::string>& input)
 
 
 // Actually, I have a better idea
-// Find all the cells+border pairs, for each of them, create a set
-// Iterate over the sets:
-//   For each set, look for an adjcent set
+// Find all the cells+border pairs, for each of them, create an edge
+// For each edge
+//   if there is an adjcent edge
+//     remove the two existing edges, merge them and add the new merged edge
 
-// It is important that these are ordered according to a cartesian grid
+// It is important that these are ordered according to a cartesian grid (L->R and T->B)
 static const std::map<Side, vec2> Adjacents {
     { Top, vec2{ 1, 0 } },
     { Right, vec2{ 0, 1 } },
@@ -136,6 +137,7 @@ static const std::map<Side, vec2> Adjacents {
     { Left, vec2{ 0, 1 } }
 };
 
+// Behaviour is undefined for overlapping edges - we should never have this case anyway
 bool are_edges_adjacent(const edge& e1, const edge& e2)
 {
     if (e1.side != e2.side)
@@ -174,10 +176,15 @@ edge merge_two_edges(const edge& e1, const edge& e2)
     return e;
 }
 
+// Algorith as above
 void merge_edges(edges& es) {
-    bool merged = false;
+
+    bool merged;
     do {
+        // Once we've tried merging every edge with every other edge and failed
+        // We can terminate
         merged = false;
+
         auto candidate = es.begin();
         while (candidate != es.end()) {
             auto other = candidate;
@@ -220,47 +227,3 @@ edges find_edges(const region& r) {
     return es;
 
 }
-
-
-// bool find_contiguous_edge(edges& e, Side side, vec2 location, edge& found)
-// {
-//     auto edge_it = std::find_if(e.begin(), e.end(), [&side, &location](edge& ed) {
-//         return (ed.first == side) &&
-//             std::find(ed.second.begin(), ed.second.end(), location) != ed.second.end();
-//     });
-
-//     if (edge_it != e.end()) {
-//         found = *edge_it;
-//         return true;
-//     }
-
-//     return false;
-// }
-
-// edges find_edges(const region &r)
-// {
-//     edges e;
-
-//     for(auto cell: r)
-//     {
-//         auto borders = borders_for_cell(cell, r);
-//         if (borders.size() == 0)
-//             continue;
-        
-//         for(auto border_side: borders) {
-//             auto adjacent_dirs = Adjacents.find(border_side)->second;
-            
-//             for(auto direction: adjacent_dirs) {
-//                 auto looking_for = cell + direction;
-//                 edge found_edge;
-//                 if (find_contiguous_edge(e, border_side, looking_for, found_edge)) {
-//                     found_edge.second.insert(cell);
-//                 }
-//             }
-
-
-//         }
-//     }
-
-//     return e;
-// }

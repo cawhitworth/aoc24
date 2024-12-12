@@ -26,11 +26,6 @@ enum Direction {
     Vertical
 };
 
-// typedef std::pair<Side, vec2_set> edge;
-// typedef std::vector<edge> edges;
-
-// edges find_edges(const region &r);
-
 struct edge {
     Side side;
     vec2 start;
