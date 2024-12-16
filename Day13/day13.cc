@@ -42,7 +42,7 @@ solution solve(equation_system s)
     return std::make_pair(x,y);
 }
 
-static const number tolerance = 0.00000001;
+//static const number tolerance = 0.00000001;
 
 // bool integer_solution(solution s)
 // {
@@ -54,18 +54,18 @@ static const number tolerance = 0.00000001;
 
 bool integer_solution(solution s, equation_system eq_s)
 {
-    solution s2 { std::round(s.first), std::round(s.second) };
+    // solution s2 { std::round(s.first), std::round(s.second) };
     auto r1 = eq_s.a * s.first + eq_s.b * s.second;
     auto r2 = eq_s.d * s.first + eq_s.e * s.second;
     return r1 == eq_s.c && r2 == eq_s.f &&
-           std::abs(s2.first - s.first) <= tolerance &&
-           std::abs(s2.second - s2.second) <= tolerance &&
+        //    std::abs(s2.first - s.first) <= tolerance &&
+        //    std::abs(s2.second - s2.second) <= tolerance &&
             s.first >= 0 && s.second >= 0;
 }
 
 equation_system parse(std::string l[3])
 {
-    equation_system s;
+    equation_system s {};
     std::regex line12{"Button [AB]: X\\+(\\d+), Y\\+(\\d+)"};
     std::regex line3("Prize: X=(\\d+), Y=(\\d+)");
 

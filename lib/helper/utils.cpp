@@ -4,6 +4,8 @@
 
 #include "utils.h"
 
+#define IGNORE(x) ((void*)&(x))
+
 
 std::vector<std::string> split_string(const std::string& s, const char c)
 {
@@ -29,7 +31,7 @@ std::vector<int> numbers_from(const std::string&s, const char c)
         try {
             result.push_back(std::stoi(s));
         }
-        catch (const std::invalid_argument & e) {}
+        catch (const std::invalid_argument & e) { IGNORE(e); }
     }
     return result;
 }
@@ -42,7 +44,7 @@ std::vector<long long> ll_numbers_from(const std::string&s, const char c)
         try {
             result.push_back(std::stoll(s));
         }
-        catch (const std::invalid_argument & e) {}
+        catch (const std::invalid_argument & e) { IGNORE(e); }
     }
     return result;
 }

@@ -42,8 +42,8 @@ long long mod_mac(long long x, long long y, long long c, long long mod)
 
 void move(robot& r, size_t steps, const vec2& grid_size)
 {
-    r.pos.x = mod_mac(r.pos.x, r.vel.x, steps, grid_size.x);
-    r.pos.y = mod_mac(r.pos.y, r.vel.y, steps, grid_size.y);
+    r.pos.x = static_cast<int>(mod_mac(r.pos.x, r.vel.x, steps, grid_size.x));
+    r.pos.y = static_cast<int>(mod_mac(r.pos.y, r.vel.y, steps, grid_size.y));
 }
 
 int quadrant(const robot& r, const vec2& grid_size)

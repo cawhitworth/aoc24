@@ -1,4 +1,5 @@
 #include <catch2/catch_test_macros.hpp>
+#include <algorithm>
 #include "day14.h"
 
 static const std::vector<std::string> input_data = {

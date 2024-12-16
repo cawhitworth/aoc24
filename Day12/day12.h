@@ -22,11 +22,6 @@ enum Side {
     Left
 };
 
-enum Direction {
-    Horizontal,
-    Vertical
-};
-
 struct edge {
     Side side;
     vec2 start;
